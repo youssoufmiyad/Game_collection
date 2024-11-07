@@ -1,0 +1,20 @@
+﻿<Application x:Class="Game_collection.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:css="clr-namespace:XamlCSS;assembly=XamlCSS"
+             xmlns:local="clr-namespace:Game_collection"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <css:StyleSheet x:Key="inlineStyle" xml:space="preserve">
+                <css:StyleSheet.Content>
+                    <![CDATA[
+                   
+                    
+                    
+                    ]]>
+                </css:StyleSheet.Content>
+            </css:StyleSheet>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
