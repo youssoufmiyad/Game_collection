@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Game_collection.ViewModels;
+using Game_collection.Views.Controls;
 
 namespace Game_collection.Views
 {
@@ -20,10 +21,13 @@ namespace Game_collection.Views
     /// </summary>
     public partial class Home
     {
+        
+
         public Home()
         {
             InitializeComponent();
-            this.DataContext = new HomeViewModel();
         }
+
+
     }
 }

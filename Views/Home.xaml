@@ -10,18 +10,25 @@
         Height="1024" MinWidth="1450"
         cssWPF:Css.StyleSheet="{StaticResource inlineStyle}">
 
-    <!--<Window.DataContext>
-        <vm:HomeViewModel xmlns:vm="clr-namespace:Game_collection.ViewModels"/>
-    </Window.DataContext>-->
 
-    <!--<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-        <TextBlock Text="{Binding Message}" FontSize="16" Margin="0,0,0,10"/>
-        <Button Content="Mettre à jour le message" Command="{Binding MettreAJourMessageCommand}"/>
-    </StackPanel>-->
-    
     <Grid>
-        <local:Box HorizontalAlignment="Left" Margin="80,268,0,0" Height="480" VerticalAlignment="Top"/>
+        <ListBox BorderThickness="0" ItemsSource="{Binding Boxes}" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <!--<local:Box HorizontalAlignment="Left" Margin="80,268,0,0" Height="480" VerticalAlignment="Top" />-->
+                    <local:Box />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+        <!--<local:Box/>-->
+        <!--<local:Box HorizontalAlignment="Left" Margin="80,268,0,0" Height="480" VerticalAlignment="Top" Description="Test"/>
         <local:Box Margin="0,268,0,0" HorizontalAlignment="Center" Width="410" Height="480" VerticalAlignment="Top"/>
         <local:Box HorizontalAlignment="Right" Margin="0,268,78,0" Height="480" VerticalAlignment="Top"/>
+        -->
     </Grid>
 </UserControl>
