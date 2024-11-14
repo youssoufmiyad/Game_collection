@@ -17,7 +17,7 @@ namespace Game_collection.Views
     /// <summary>
     /// Logique d'interaction pour ChooseCategory.xaml
     /// </summary>
-    public partial class ChooseCategory : Window
+    public partial class ChooseCategory
     {
         public ChooseCategory()
         {

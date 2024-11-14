@@ -17,7 +17,7 @@ namespace Game_collection.Views
     /// <summary>
     /// Logique d'interaction pour BrowseCollection.xaml
     /// </summary>
-    public partial class BrowseCollection : Window
+    public partial class BrowseCollection 
     {
         public BrowseCollection()
         {

@@ -17,7 +17,7 @@ namespace Game_collection.Views
     /// <summary>
     /// Logique d'interaction pour Modify.xaml
     /// </summary>
-    public partial class Modify : Window
+    public partial class Modify
     {
         public Modify()
         {

@@ -17,7 +17,7 @@ namespace Game_collection.Views
     /// <summary>
     /// Logique d'interaction pour AddGame.xaml
     /// </summary>
-    public partial class AddGame : Window
+    public partial class AddGame
     {
         public AddGame()
         {

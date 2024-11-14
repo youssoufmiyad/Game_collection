@@ -17,7 +17,7 @@ namespace Game_collection.Views
     /// <summary>
     /// Logique d'interaction pour Detail.xaml
     /// </summary>
-    public partial class Detail : Window
+    public partial class Detail
     {
         public Detail()
         {
