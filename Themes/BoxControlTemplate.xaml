@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Game_collection.Views.Controls">
+    <Style TargetType="{x:Type local:Box}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:Box">
+                    <Button Command="{Binding Command, RelativeSource={RelativeSource TemplatedParent}}"
+                            CommandParameter="{Binding CommandParameter, RelativeSource={RelativeSource TemplatedParent}}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

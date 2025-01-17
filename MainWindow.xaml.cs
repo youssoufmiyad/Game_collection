@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using Game_collection.Database;
+using Game_collection.Views;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,10 +21,16 @@ namespace Game_collection
     {
         public MainWindow()
         {
+            DataAccess.InitializeDatabase();
             Css.Initialize();
-
             InitializeComponent();
             
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            AddGame addGameWindow = new AddGame();
+            addGameWindow.ShowDialog();
         }
     }
 }

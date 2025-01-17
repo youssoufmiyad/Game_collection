@@ -6,7 +6,7 @@
         xmlns:vm="clr-namespace:Game_collection.ViewModels"
         xmlns:v="clr-namespace:Game_collection.Views"
         xmlns:local="clr-namespace:Game_collection"
-        xmlns:Controls="clr-namespace:Game_collection.Views.Controls" x:Class="Game_collection.MainWindow"
+        x:Class="Game_collection.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="1024" Width="1450">
 
@@ -18,18 +18,26 @@
         <!-- Menu de navigation -->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Content="Accueil" Command="{Binding GoToHomeCommand}" Margin="5"/>
-            <Button Content="Paramètres" Command="{Binding GoToChooseCollectionCommand}" Margin="5"/>
+            <Button Content="Paramètres" Margin="5" Click="Button_Click"/>
         </StackPanel>
 
         <!-- Affichage dynamique du ViewModel actuel -->
-        <ContentControl Content="{Binding CurrentViewModel}">
+        <ContentControl Content="{Binding CurrentViewModel}" Height="974">
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type vm:HomeViewModel}">
-                    <!--<TextBlock Text="{Binding WelcomeMessage}" FontSize="20" HorizontalAlignment="Center" />-->
                     <v:Home/>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vm:ChooseCollectionViewModel}">
-                    <TextBlock Text="{Binding SettingsMessage}" FontSize="20" HorizontalAlignment="Center" />
+                    <v:ChooseCollection />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:ChooseCategoryViewModel}">
+                    <v:ChooseCategory/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:BrowseCollectionViewModel}">
+                    <v:BrowseCollection/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:DetailViewModel}">
+                    <v:Detail/>
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

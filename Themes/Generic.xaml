@@ -4,7 +4,7 @@
     xmlns:local="clr-namespace:Game_collection.Views.Controls"
 >
 
-    <Style TargetType="{x:Type local:Box}">
+    <!--<Style TargetType="{x:Type local:Box}">
         <Setter Property="Template">
             <Setter.Value>
                 
@@ -14,8 +14,8 @@
                     <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="480" Width="410">
                         <Grid>
                             <Label x:Name="title" Content="" Margin="0,45,0,0" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Center" MaxWidth="300" HorizontalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
-                            <TextBlock x:Name="description" VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Center" MaxWidth="380"  TextWrapping="Wrap" >
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            <TextBlock x:Name="description" VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Center" MaxWidth="380"  TextWrapping="Wrap" Text="{Binding Description}">
+                            
                             </TextBlock>
                             <Button Content="Button" HorizontalAlignment="Center" Height="55" VerticalAlignment="Top" Width="174" Margin="0,348,0,0"/>
                         </Grid>
@@ -26,6 +26,6 @@
                 
             </Setter.Value>
         </Setter>
-    </Style>
+    </Style>-->
 
 </ResourceDictionary>
