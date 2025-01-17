@@ -34,7 +34,7 @@ namespace Game_collection.ViewModels
         public MainViewModel()
         {
             GoToHomeCommand = new RelayCommand(() => CurrentViewModel = new HomeViewModel(this));
-            GoToChooseCollectionCommand = new RelayCommand(() => CurrentViewModel = new ChooseCollectionViewModel());
+            
 
             // Initialisation avec "this" pour passer la référence à MainViewModel
             CurrentViewModel = new HomeViewModel(this);

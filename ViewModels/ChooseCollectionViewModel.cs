@@ -1,6 +1,9 @@
-﻿using Game_collection.Utils;
+﻿using Game_collection.Database;
+using Game_collection.Utils;
+using Game_collection.Views.Controls;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -13,52 +16,65 @@ namespace Game_collection.ViewModels
     public class ChooseCollectionViewModel : INotifyPropertyChanged
     {
 
-        private INotifyPropertyChanged _currentViewModel;
-
-        public INotifyPropertyChanged CurrentViewModel
-        {
-            get => _currentViewModel;
-            set
-            {
-                _currentViewModel = value;
-                OnPropertyChanged();
-            }
-        }
-
         // Implémentation de l'interface INotifyPropertyChanged pour notifier les changements de propriétés
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public string SettingsMessage => "Bienvenue dans les paramètres.";
 
-        // Exemple de propriété simple liée à la vue
-        private string _message;
-        public string Message
+        private readonly MainViewModel _mainViewModel;
+
+        string _newCollectionName;
+        public string NewCollectionName
         {
-            get => _message;
+            get { return _newCollectionName; }
             set
             {
-                if (_message != value)
-                {
-                    _message = value;
-                    OnPropertyChanged();
-                }
+                _newCollectionName = value;
+                OnPropertyChanged("NewCollectionName");
             }
         }
 
-        // Commande liée à un bouton dans la vue
-        public ICommand MettreAJourMessageCommand { get; }
+        ObservableCollection<BigCardViewModel> _collectionCards;
 
-        public ChooseCollectionViewModel()
+        public ObservableCollection<BigCardViewModel> CollectionCards
         {
-            // Initialisation de la commande
-            MettreAJourMessageCommand = new RelayCommand(MettreAJourMessage);
-            Message = "Bienvenue dans la page home";
+            get { return _collectionCards; }
+            set
+            {
+                _collectionCards = value;
+                OnPropertyChanged("CollectionCards");
+            }
         }
 
-        // Méthode exécutée lorsque la commande est invoquée
-        private void MettreAJourMessage()
+        public ChooseCollectionViewModel(MainViewModel mainViewModel)
         {
-            Message = "Message mis à jour !";
+            _mainViewModel = mainViewModel;
+
+            GoToBrowseCollectionCommand = new RelayCommand(() => GoToBrowseCollection("test"));
+
+            AddNewCollectionCommand = new RelayCommand(AddNewCollection);
+
+            CollectionCards = new ObservableCollection<BigCardViewModel>();
+
+            List<string> collections = DataAccess.GetCollections();
+
+            foreach (var collection in collections)
+            {
+                CollectionCards.Add(new BigCardViewModel(collection, "Chercher", new RelayCommand(() => GoToBrowseCollection(collection))));
+            }
+        }
+
+        public ICommand GoToBrowseCollectionCommand { get; }
+
+        private void GoToBrowseCollection(string collection)
+        {
+            _mainViewModel.ChangeViewModel(new BrowseCollectionViewModel(_mainViewModel, collection));
+        }
+
+        public ICommand AddNewCollectionCommand {  get; }
+        private void AddNewCollection()
+        {
+            DataAccess.AddCollection(NewCollectionName);
+            CollectionCards.Add(new BigCardViewModel(NewCollectionName, "Chercher", new RelayCommand(() => GoToBrowseCollection(NewCollectionName))));
         }
 
         // Méthode pour notifier les changements de propriétés

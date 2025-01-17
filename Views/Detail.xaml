@@ -3,10 +3,33 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Game_collection.Views"
         mc:Ignorable="d"
-         Height="450" Width="800">
-    <Grid>
-        
+        >
+    <Grid Background="White" Width="1450" Height="780">
+        <Border Background="Gray" Width="470" Height="610" Margin="70,85,910,85" >
+            <Image Source="{Binding Cover}"/>
+        </Border>
+
+        <TextBlock Name="Title" Text="{Binding Name}" Width="300" Height="48" TextAlignment="Center" FontSize="16" Margin="850,126,300,606"/>
+        <TextBlock Name="Description" Text="{Binding Description}" Width="770" FontSize="16" TextWrapping="Wrap" Margin="624,214,56,390"/>
+        <TextBlock  Width="205" Height="16" RenderTransformOrigin="0.5,0.5" Margin="622,402,622,362">
+            <Run Text="Plateforme : "/>
+            <Run Text="{Binding Plateform}"/>
+        </TextBlock>
+        <TextBlock Name="Year" Width="205" Height="16" Margin="622,432,622,332">
+            <Run Text="Année de sortie : "/>
+            <Run Text="{Binding Year}"/>
+        </TextBlock>
+        <TextBlock Name="Price" Width="205" Height="16" Margin="622,462,622,302">
+            <Run Text="Prix à la sortie : "/>
+            <Run Text="{Binding Price, StringFormat={}{0} €}"/>
+        </TextBlock>
+        <TextBlock Name="Price_resell" Width="205" Height="16" Margin="622,492,622,272">
+            <Run Text="Prix d'occasion : "/>
+            <Run Text="{Binding PriceResell, StringFormat={}{0} €}"/>
+        </TextBlock>
+
+        <Button Name="Wishlist" Content="Wishlist" Command="{Binding AddGameToWishlistCommand}" Width="112" Height="42" Margin="1149,399,189,339"/>
+        <Button Name="Collection" Content="Collection" Command="{Binding OpenAddGameCommand}" Width="112" Height="42" Margin="1284,399,54,339"/>
     </Grid>
 </UserControl>

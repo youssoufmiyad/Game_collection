@@ -1,12 +1,33 @@
-﻿<UserControl x:Class="Game_collection.Views.AddGame"
+﻿<Window x:Class="Game_collection.Views.AddGame"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Game_collection.Views"
+        xmlns:controls="clr-namespace:Game_collection.Views.Controls"
         mc:Ignorable="d"
-         Height="450" Width="800">
-    <Grid>
-        
+         Height="780" Width="1450">
+    <Grid Background="White">
+        <Border BorderBrush="Black" BorderThickness="1" Width="470" Height="610" Margin="67,77,913,77">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="5*"/>
+                </Grid.RowDefinitions>
+                <Image Grid.RowSpan="2" Margin="0,0,-54,0"/>
+                <Button Content="Cover" Width="250" Height="80" Margin="109,240,109,60" Grid.Row="1"/>
+            </Grid>
+        </Border>
+        <Grid>
+            <controls:Input Label="Nom" Placeholder="Name" InputName="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Margin="629,41,503,639"/>
+            <controls:Select Label="Genres" Placeholder="Genre de jeu" SelectedValue="{Binding Genre, UpdateSourceTrigger=PropertyChanged}" SelectName="Genre" Options="{Binding GenreOptions}" Margin="1009,40,115,638"/>
+            <controls:Input Label="Plateforme" Placeholder="PC" InputName="{Binding Platform, UpdateSourceTrigger=PropertyChanged}" Margin="630,219,503,462"/>
+            <controls:Input Label="Date de sortie" Placeholder="01/01/2077" InputName="{Binding ReleaseDate, UpdateSourceTrigger=PropertyChanged}" Margin="1010,131,115,550"/>
+            <controls:Input Label="Date d'acquisition" Placeholder="01/01/2077" InputName="{Binding AcquisitionDate, UpdateSourceTrigger=PropertyChanged}" Margin="630,130,503,550"/>
+            <controls:Input Label="Prix d'acquisition" Placeholder="19.99 €" InputName="{Binding Price, UpdateSourceTrigger=PropertyChanged}" Margin="1010,219,123,461"/>
+            <controls:Select Label="Collection" Placeholder="Wishlist" SelectName="Collection" SelectedValue="{Binding Collection, UpdateSourceTrigger=PropertyChanged}" Options="{Binding CollectionOptions}" Margin="629,299,495,382"/>
+            <controls:Textarea Label="Description" Placeholder="Description" TextareaName="{Binding Description, UpdateSourceTrigger=PropertyChanged}"  Margin="630,362,115,252"/>
+            <Button Content="Enregistrer" Command="{Binding AddGameCommand}" HorizontalAlignment="Left" Margin="1059,536,0,0" VerticalAlignment="Top" Width="251" Height="80"/>
+        </Grid>
     </Grid>
-</UserControl>
+</Window>

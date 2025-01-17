@@ -20,25 +20,7 @@ namespace Game_collection.ViewModels
         // Implémentation de l'interface INotifyPropertyChanged pour notifier les changements de propriétés
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public string WelcomeMessage => "Bienvenue sur la page d'accueil !";
-
-        // Exemple de propriété simple liée à la vue
-        private string _message;
-        public string Message
-        {
-            get => _message;
-            set
-            {
-                if (_message != value)
-                {
-                    _message = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
         // Commande liée à un bouton dans la vue
-        public ICommand GoToChooseCategoryCommand { get; }
         
         private readonly MainViewModel _mainViewModel;
 
@@ -49,14 +31,15 @@ namespace Game_collection.ViewModels
             GoToChooseCategoryCommand = new RelayCommand(GoToChooseCategory);
 
             GoToChooseCollectionCommand = new RelayCommand(GoToChooseCollection);
-            Message = "Bienvenue dans la page home";
+
+            GoToWishlistCommand = new RelayCommand(GoToWishlist);
 
             _boxes = new ObservableCollection<Box>();
             Boxes = new ObservableCollection<BoxViewModel>
             {
                 new BoxViewModel("JEUX DISPO SUR L’APPLICATION", "Description pour la box 1", "GO", GoToChooseCategoryCommand),
                 new BoxViewModel("COLLECTION","Description pour la box 2","GO", GoToChooseCollectionCommand),
-                new BoxViewModel("WISHLIST", "Description pour la box 3", "GO", GoToChooseCategoryCommand),
+                new BoxViewModel("WISHLIST", "Description pour la box 3", "GO", GoToWishlistCommand),
             };
         }
 
@@ -72,13 +55,20 @@ namespace Game_collection.ViewModels
 
         private void GoToChooseCollection()
         {
-            _mainViewModel.ChangeViewModel(new ChooseCollectionViewModel());
+            _mainViewModel.ChangeViewModel(new ChooseCollectionViewModel(_mainViewModel));
         }
 
+        public ICommand GoToChooseCategoryCommand { get; }
         // Méthode exécutée lorsque la commande est invoquée
         private void GoToChooseCategory()
         {
             _mainViewModel.ChangeViewModel(new ChooseCategoryViewModel());
+        }
+
+        public ICommand GoToWishlistCommand { get; }
+        private void GoToWishlist()
+        {
+            _mainViewModel.ChangeViewModel(new BrowseCollectionViewModel(_mainViewModel, "Wishlist"));
         }
 
         // Méthode pour notifier les changements de propriétés

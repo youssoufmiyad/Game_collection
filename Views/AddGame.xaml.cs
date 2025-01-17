@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Game_collection.Models;
+using Game_collection.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +19,31 @@ namespace Game_collection.Views
     /// <summary>
     /// Logique d'interaction pour AddGame.xaml
     /// </summary>
-    public partial class AddGame
+    public partial class AddGame : Window
     {
+
         public AddGame()
         {
             InitializeComponent();
+            DataContext = new AddGameViewModel();
+        }
+
+        public AddGame(Game game)
+        {
+            InitializeComponent();
+            DataContext = new AddGameViewModel(game);
+        }
+
+        public AddGame(string collectionName)
+        {
+            InitializeComponent();
+            DataContext = new AddGameViewModel(collectionName);
+        }
+
+        public AddGame(Game game, string collectionName)
+        {
+            InitializeComponent();
+            DataContext = new AddGameViewModel(game, collectionName);
         }
     }
 }

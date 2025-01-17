@@ -3,10 +3,23 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Game_collection.Views"
-        mc:Ignorable="d"
-        Height="450" Width="800">
+        xmlns:local="clr-namespace:Game_collection.Views.Controls"
+        mc:Ignorable="d">
     <Grid>
-        <TextBlock Text="Choose collection " FontSize="20" HorizontalAlignment="Center" />
+        <local:Input Label="Nom de la collection" Placeholder="Ajouter un nom à votre nouvelle collection" InputName="{Binding NewCollectionName, UpdateSourceTrigger=PropertyChanged}" />
+        <Button Content="+ Ajouter une collection" HorizontalAlignment="Center" Height="55" VerticalAlignment="Top" Width="174" Command="{Binding AddNewCollectionCommand}"/>
+        <ListBox BorderThickness="0" ItemsSource="{Binding CollectionCards}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Width="Auto">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <local:BigCard/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" ItemWidth="310" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
     </Grid>
 </UserControl>
+ 
