@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="Game_collection.Views.Controls.Textarea"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Game_collection.Views.Controls"
+             mc:Ignorable="d" 
+             >
+    <Grid>
+        <Label Content="{Binding Label, RelativeSource={RelativeSource AncestorType=UserControl}}"
+       HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="0,31,0,0" TextWrapping="Wrap" 
+         Text="{Binding TextareaName, RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged}"
+        x:Name="DynamicTextBox"
+         VerticalAlignment="Top" Width="690" Height="70"/>
+    </Grid>
+</UserControl>
