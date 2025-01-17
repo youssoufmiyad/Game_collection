@@ -1,44 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
-namespace Game_collection.Utils
+public class RelayCommand : ICommand
 {
-    public class RelayCommand : ICommand
+    private readonly Action<object> _executeWithParameter; // Pour les commandes avec paramètre
+    private readonly Action _executeWithoutParameter;      // Pour les commandes sans paramètre
+    private readonly Func<object, bool> _canExecuteWithParameter;
+    private readonly Func<bool> _canExecuteWithoutParameter;
+
+    public event EventHandler CanExecuteChanged;
+
+    // Constructeur pour les commandes avec paramètre
+    public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
     {
-        private readonly Action _execute;
-        private readonly Func<bool> _canExecute;
-
-        // Événement requis par l'interface ICommand
-        public event EventHandler CanExecuteChanged;
-
-        // Constructeur qui prend l'action à exécuter et une condition facultative
-        public RelayCommand(Action execute, Func<bool> canExecute = null)
-        {
-            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
-            _canExecute = canExecute;
-        }
-
-        // Détermine si la commande peut s'exécuter
-        public bool CanExecute(object parameter)
-        {
-            return _canExecute == null || _canExecute();
-        }
-
-        // Exécute la commande
-        public void Execute(object parameter)
-        {
-            _execute();
-        }
-
-        // Méthode pour notifier un changement dans l'état de la commande (optionnel)
-        public void RaiseCanExecuteChanged()
-        {
-            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-        }
+        _executeWithParameter = execute ?? throw new ArgumentNullException(nameof(execute));
+        _canExecuteWithParameter = canExecute;
     }
 
+    // Constructeur pour les commandes sans paramètre
+    public RelayCommand(Action execute, Func<bool> canExecute = null)
+    {
+        _executeWithoutParameter = execute ?? throw new ArgumentNullException(nameof(execute));
+        _canExecuteWithoutParameter = canExecute;
+    }
+
+    // Détermine si la commande peut s'exécuter
+    public bool CanExecute(object parameter)
+    {
+        if (_canExecuteWithoutParameter != null)
+            return _canExecuteWithoutParameter();
+        if (_canExecuteWithParameter != null)
+            return _canExecuteWithParameter(parameter);
+        return true;
+    }
+
+    // Exécute la commande
+    public void Execute(object parameter)
+    {
+        if (_executeWithoutParameter != null)
+            _executeWithoutParameter();
+        else if (_executeWithParameter != null)
+            _executeWithParameter(parameter);
+    }
+
+    // Méthode pour notifier les changements
+    public void RaiseCanExecuteChanged()
+    {
+        CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+    }
 }

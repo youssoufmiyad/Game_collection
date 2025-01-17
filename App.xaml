@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:css="clr-namespace:XamlCSS;assembly=XamlCSS"
              xmlns:local="clr-namespace:Game_collection"
+             xmlns:utils="clr-namespace:Game_collection.Utils"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -15,6 +16,8 @@
                     ]]>
                 </css:StyleSheet.Content>
             </css:StyleSheet>
+
+            <utils:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
