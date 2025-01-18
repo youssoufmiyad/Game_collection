@@ -55,7 +55,7 @@ namespace Game_collection.ViewModels
                 Cards = new ObservableCollection<CardViewModel>();
                 foreach (var game in games)
                 {
-                    Cards.Add(new CardViewModel(_mainViewModel, game, game.Id.ToString()));
+                    Cards.Add(new CardViewModel(_mainViewModel, game, DataAccess.GetGameId(game.Name)));
                 }
 
 

@@ -16,6 +16,17 @@ namespace Game_collection.ViewModels
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        private int _id;
+        public int ID
+        {
+            get { return _id;}
+            set
+            {
+                _id = value;
+                OnPropertyChanged();
+            }
+        }
+
         private string _name;
         public string Name
         {
@@ -168,10 +179,12 @@ namespace Game_collection.ViewModels
 
         public ModifyGameViewModel(Game game)
         {
+            ID = game.Id;
             Name = game.Name;
             Genre = game.Genre;
             Description = game.Description;
             Platform = game.Plateform;
+            AcquisitionDate = game.AcquisitionDate;
             ReleaseDate = game.ReleaseDate;
             Price = game.Price;
             PriceResell = game.PriceResell;
@@ -228,23 +241,49 @@ namespace Game_collection.ViewModels
 
         public ModifyGameViewModel(Game game, string collectionName)
         {
-            Collection = collectionName;
+            ModifyGameCommand = new RelayCommand(ModifyGame);
 
+            Collection = collectionName;
+            ID = game.Id;
             Name = game.Name;
             Genre = game.Genre;
             Description = game.Description;
             Platform = game.Plateform;
+            AcquisitionDate = game.AcquisitionDate;
             ReleaseDate = game.ReleaseDate;
             Price = game.Price;
             PriceResell = game.PriceResell;
 
+            GenreOptions = new ObservableCollection<string>
+            {
+                "Action",
+                "Aventure",
+                "RPG",
+                "FPS"
+            };
 
+            List<string> collections = DataAccess.GetCollections();
+            CollectionOptions = new ObservableCollection<string>();
+            if (!collections.Contains(collectionName))
+            {
+                // Ajouter la collectionName si elle n'existe pas
+                CollectionOptions.Add(collectionName);
+            }
+            foreach (var collection in collections)
+            {
+                CollectionOptions.Add(collection);
+            }
         }
 
         public ICommand ModifyGameCommand { get; }
         private void ModifyGame()
         {
-            Game game = new(Name, Genre, Description, Platform, ReleaseDate ?? new DateTime(), AcquisitionDate ?? new DateTime(), Price ?? 29.99, PriceResell ?? 29.99, null);
+            Game game = new(ID, Name, Genre, Description, Platform, ReleaseDate ?? new DateTime(), AcquisitionDate ?? new DateTime(), Price ?? 29.99, PriceResell ?? 29.99, null);
+            DataAccess.ModifyGame(game);
+        }
+
+        private void ModifyGame(Game game)
+        {
             DataAccess.ModifyGame(game);
         }
 

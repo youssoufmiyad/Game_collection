@@ -140,18 +140,31 @@ namespace Game_collection.Database
 
         public static string GetGameId(string gameName)
         {
+            StreamWriter writetext = File.AppendText("debug_get_game_Id.txt");
+
+            writetext.WriteLine("Get game ID method starts");
             using (SqliteConnection db = new SqliteConnection($"Filename=collections.db"))
             {
                 db.Open();
-
+                writetext.WriteLine($"Game name : {gameName}");
 
                 SqliteCommand getGameIdCommand = new SqliteCommand("SELECT ID FROM Games WHERE Name = @GameName;", db);
                 getGameIdCommand.Parameters.AddWithValue("@GameName", gameName);
-                SqliteDataReader gameIdReader = getGameIdCommand.ExecuteReader();
-                gameIdReader.Read();
+                try
+                {
+                    SqliteDataReader gameIdReader = getGameIdCommand.ExecuteReader();
+                    gameIdReader.Read();
+                    writetext.WriteLine($"Game id : {gameIdReader["ID"].ToString()}");
+                    writetext.Close();
+                    return gameIdReader["ID"].ToString();
+                }
+                catch (Exception ex)
+                {
+                    writetext.WriteLine($"error : {ex}");
+                    writetext.Close();
+                    return "-1";
+                }
 
-
-                return gameIdReader["ID"].ToString();
             }
         }
 
@@ -417,6 +430,15 @@ namespace Game_collection.Database
 
             writetext.WriteLine("Modify game method starts");
 
+            writetext.WriteLine("game object");
+
+            foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(game))
+            {
+                string name = descriptor.Name;
+                object value = descriptor.GetValue(game);
+                writetext.WriteLine("{0}={1}", name, value);
+            }
+
             using (SqliteConnection db = new SqliteConnection("Filename=collections.db"))
             {
                 db.Open();
@@ -440,11 +462,12 @@ namespace Game_collection.Database
                 updateCommand.Parameters.AddWithValue("@Price", game.Price);
                 updateCommand.Parameters.AddWithValue("@PriceResell", game.PriceResell);
                 updateCommand.Parameters.AddWithValue("@Cover", game.Cover);
+                updateCommand.Parameters.AddWithValue("@ID", game.Id);
 
                 try
                 {
-                    updateCommand.ExecuteNonQuery();
-                    writetext.WriteLine("Game modified");
+                    int rows = updateCommand.ExecuteNonQuery();
+                    writetext.WriteLine($"Game modified : {rows}");
                 }
                 catch (Exception e)
                 {

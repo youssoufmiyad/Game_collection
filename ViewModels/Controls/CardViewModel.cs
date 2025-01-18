@@ -153,7 +153,7 @@ namespace Game_collection.ViewModels
         public ICommand OpenModifyGameCommand { get; set; }
         private void OpenModifyGame()
         {
-            AddGame modifyGameWindow = new AddGame(Game, Game.Collection);
+            ModifyGame modifyGameWindow = new ModifyGame(Game, Game.Collection);
             modifyGameWindow.ShowDialog();
         }
 

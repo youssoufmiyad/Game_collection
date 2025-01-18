@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Game_collection.Models;
+using Game_collection.ViewModels;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +20,18 @@ namespace Game_collection.Views
     /// <summary>
     /// Logique d'interaction pour Modify.xaml
     /// </summary>
-    public partial class Modify
+    public partial class ModifyGame
     {
-        public Modify()
+        public ModifyGame()
         {
             InitializeComponent();
+            DataContext = new ModifyGameViewModel();
+        }
+
+        public ModifyGame(Game game, string collection)
+        {
+            InitializeComponent();
+            DataContext = new ModifyGameViewModel(game, collection);
         }
     }
 }
