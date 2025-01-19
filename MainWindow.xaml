@@ -18,7 +18,7 @@
         <!-- Menu de navigation -->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Content="Accueil" Command="{Binding GoToHomeCommand}" Margin="5"/>
-            <Button Content="Paramètres" Margin="5" Click="Button_Click"/>
+            <Button Content="Ajouter un jeu" Margin="5" Click="Button_Click"/>
         </StackPanel>
 
         <!-- Affichage dynamique du ViewModel actuel -->
@@ -30,8 +30,8 @@
                 <DataTemplate DataType="{x:Type vm:ChooseCollectionViewModel}">
                     <v:ChooseCollection />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type vm:ChooseCategoryViewModel}">
-                    <v:ChooseCategory/>
+                <DataTemplate DataType="{x:Type vm:BrowseGamesViewModel}">
+                    <v:BrowseGamesView/>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vm:BrowseCollectionViewModel}">
                     <v:BrowseCollection/>

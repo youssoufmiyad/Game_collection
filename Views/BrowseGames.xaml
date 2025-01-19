@@ -3,10 +3,26 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Game_collection.Views"
-        mc:Ignorable="d"
-         Height="450" Width="800">
+        xmlns:local="clr-namespace:Game_collection.Views.Controls"
+        mc:Ignorable="d">
     <Grid>
-        
+        <Button Content="+ Ajouter un jeu" HorizontalAlignment="Center" Height="55" VerticalAlignment="Top" Width="174" Margin="0,348,0,0" Command="{Binding OpenAddGameCommand}"/>
+        <ListBox BorderThickness="0" ItemsSource="{Binding Cards}" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Visibility="{Binding Visibility}">
+                        <local:Card/>
+                        <Button Content="Modifier" Width="80" Height="20" Margin="175, 250, 0, 0" Command="{Binding OpenModifyGameCommand}"/>
+                        <Button Content="Supprimer" Width="80" Height="20" Margin="0, 250, 0, 0" Command="{Binding DeleteGameCommand}"/>
+                        <Button Content="Déplacer" Width="80" Height="20" Margin="0, 250, 175, 0" Command="{Binding MoveGameCommand}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
     </Grid>
 </UserControl>

@@ -28,7 +28,7 @@ namespace Game_collection.ViewModels
         {
             _mainViewModel = mainViewModel;
             // Initialisation de la commande
-            GoToChooseCategoryCommand = new RelayCommand(GoToChooseCategory);
+            GoToBrowseGamesCommand = new RelayCommand(GoToChooseCategory);
 
             GoToChooseCollectionCommand = new RelayCommand(GoToChooseCollection);
 
@@ -37,9 +37,9 @@ namespace Game_collection.ViewModels
             _boxes = new ObservableCollection<Box>();
             Boxes = new ObservableCollection<BoxViewModel>
             {
-                new BoxViewModel("JEUX DISPO SUR L’APPLICATION", "Description pour la box 1", "GO", GoToChooseCategoryCommand),
-                new BoxViewModel("COLLECTION","Description pour la box 2","GO", GoToChooseCollectionCommand),
-                new BoxViewModel("WISHLIST", "Description pour la box 3", "GO", GoToWishlistCommand),
+                new BoxViewModel("JEUX ENREGISTRES", "Ensemble des jeux enregistrés sur la plateforme (indépendamment du genre et de la collection)", "GO", GoToBrowseGamesCommand),
+                new BoxViewModel("COLLECTION","Choix de la collection à parcourir","GO", GoToChooseCollectionCommand),
+                new BoxViewModel("WISHLIST", "Voir les jeux que vous souhaitez acquérir", "GO", GoToWishlistCommand),
             };
         }
 
@@ -58,11 +58,11 @@ namespace Game_collection.ViewModels
             _mainViewModel.ChangeViewModel(new ChooseCollectionViewModel(_mainViewModel));
         }
 
-        public ICommand GoToChooseCategoryCommand { get; }
+        public ICommand GoToBrowseGamesCommand{ get; }
         // Méthode exécutée lorsque la commande est invoquée
         private void GoToChooseCategory()
         {
-            _mainViewModel.ChangeViewModel(new ChooseCategoryViewModel());
+            _mainViewModel.ChangeViewModel(new BrowseGamesViewModel(_mainViewModel));
         }
 
         public ICommand GoToWishlistCommand { get; }
