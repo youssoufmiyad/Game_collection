@@ -21,6 +21,19 @@ namespace Game_collection.ViewModels
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        public Window addGameWindow;
+
+        private string _errorText;
+        public string ErrorText
+        {
+            get { return _errorText; }
+            set
+            {
+                _errorText = value;
+                OnPropertyChanged("ErrorText");
+            }
+        }
+
         private string _name;
         public string Name
         {
@@ -28,7 +41,7 @@ namespace Game_collection.ViewModels
             set
             {
                 _name = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Name");
             }
         }
 
@@ -39,7 +52,7 @@ namespace Game_collection.ViewModels
             set
             {
                 _genre = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Genre");
             }
         }
         private ObservableCollection<string> _genreOptions;
@@ -49,7 +62,7 @@ namespace Game_collection.ViewModels
             set
             {
                 _genreOptions = value;
-                OnPropertyChanged();
+                OnPropertyChanged("GenreOptions");
             }
         }
 
@@ -60,7 +73,7 @@ namespace Game_collection.ViewModels
             set
             {
                 _collection = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Collection");
             }
         }
         private ObservableCollection<string> _collectionOptions;
@@ -70,7 +83,7 @@ namespace Game_collection.ViewModels
             set
             {
                 _collectionOptions = value;
-                OnPropertyChanged();
+                OnPropertyChanged("CollectionOptions");
             }
         }
 
@@ -81,7 +94,7 @@ namespace Game_collection.ViewModels
             set
             {
                 _description = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Description");
             }
         }
 
@@ -92,7 +105,7 @@ namespace Game_collection.ViewModels
             set
             {
                 _platform = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Platform");
             }
         }
 
@@ -103,7 +116,7 @@ namespace Game_collection.ViewModels
             set
             {
                 _releaseDate = value;
-                OnPropertyChanged();
+                OnPropertyChanged("ReleaseDate");
             }
         }
 
@@ -114,7 +127,7 @@ namespace Game_collection.ViewModels
             set
             {
                 _acquisitionDate = value;
-                OnPropertyChanged();
+                OnPropertyChanged("AcquisitionDate");
             }
         }
 
@@ -125,7 +138,7 @@ namespace Game_collection.ViewModels
             set
             {
                 _price = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Price");
             }
         }
 
@@ -136,7 +149,7 @@ namespace Game_collection.ViewModels
             set
             {
                 _priceResell = value;
-                OnPropertyChanged();
+                OnPropertyChanged("PriceResell");
             }
         }
 
@@ -147,12 +160,13 @@ namespace Game_collection.ViewModels
             set
             {
                 _cover = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Cover");
             }
         }
 
-        public AddGameViewModel()
+        public AddGameViewModel(Window window)
         {
+            addGameWindow = window;
             AddGameCommand = new RelayCommand(() =>
             {
                 if (Collection.Length > 0)
@@ -180,8 +194,10 @@ namespace Game_collection.ViewModels
             }
         }
 
-        public AddGameViewModel(Game game)
+        public AddGameViewModel(Window window, Game game)
         {
+            addGameWindow = window;
+
             Name = game.Name;
             Genre = game.Genre;
             Description = game.Description;
@@ -219,10 +235,10 @@ namespace Game_collection.ViewModels
 
         }
 
-        public AddGameViewModel(string collectionName)
+        public AddGameViewModel(Window window, string collectionName)
         {
+            addGameWindow = window;
             Collection = collectionName;
-
 
             AddGameCommand = new RelayCommand(() =>
             {
@@ -259,8 +275,9 @@ namespace Game_collection.ViewModels
             }
         }
 
-        public AddGameViewModel(Game game, string collectionName)
+        public AddGameViewModel(Window window, Game game, string collectionName)
         {
+            addGameWindow = window;
             Collection = collectionName;
 
             Name = game.Name;
@@ -278,14 +295,33 @@ namespace Game_collection.ViewModels
         private void AddGame()
         {
             Game game = new(Name, Genre, Description, Platform, ReleaseDate ?? new DateTime(), AcquisitionDate ?? new DateTime(), Price ?? 29.99, PriceResell ?? 29.99, null);
-            DataAccess.AddGame(game);
+            try
+            {
+                DataAccess.AddGame(game);
+                addGameWindow.Close();
+            }
+            catch (Exception ex)
+            {
+                ErrorText = ex.Message;
+            }
+
+
         }
 
         private void AddGameToCollection(string collectionName)
         {
             Game game = new(Name, Genre, Description, Platform, ReleaseDate ?? new DateTime(), AcquisitionDate ?? new DateTime(), Price ?? 29.99, PriceResell ?? 29.99, null);
-            DataAccess.AddGame(game);
-            DataAccess.AddGameToCollection(Int32.Parse(DataAccess.GetCollectionId(collectionName)), Int32.Parse(DataAccess.GetGameId(Name)));
+            try
+            {
+                DataAccess.AddGame(game);
+                DataAccess.AddGameToCollection(Int32.Parse(DataAccess.GetCollectionId(collectionName)), Int32.Parse(DataAccess.GetGameId(Name)));
+                addGameWindow.Close();
+            }catch (Exception ex)
+            {
+                ErrorText = ex.Message;
+            }
+
+
 
         }
         // Méthode pour notifier les changements de propriétés

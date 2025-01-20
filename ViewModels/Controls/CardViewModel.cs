@@ -114,7 +114,7 @@ namespace Game_collection.ViewModels
             _cover = game.Cover;
             GoToDetailCommand = new RelayCommand(GoToDetail);
 
-            OpenAddGameCommand = new RelayCommand(OpenAddGame);
+            //OpenAddGameCommand = new RelayCommand(OpenAddGame);
             DeleteGameCommand = new RelayCommand(DeleteGame);
             OpenModifyGameCommand = new RelayCommand(OpenModifyGame); 
         }
@@ -131,7 +131,7 @@ namespace Game_collection.ViewModels
             _cover = game.Cover;
             GoToDetailCommand = new RelayCommand(GoToDetail);
 
-            OpenAddGameCommand = new RelayCommand(OpenAddGame);
+            //OpenAddGameCommand = new RelayCommand(OpenAddGame);
             DeleteGameCommand = new RelayCommand(DeleteGame);
             OpenModifyGameCommand = new RelayCommand(OpenModifyGame);
         }
@@ -142,13 +142,13 @@ namespace Game_collection.ViewModels
             _mainViewModel.ChangeViewModel(new DetailViewModel(_mainViewModel, Game));
         }
 
-        public ICommand OpenAddGameCommand { get; set; }
+        //public ICommand OpenAddGameCommand { get; set; }
 
-        private void OpenAddGame()
-        {
-            AddGame addGameWindow = new AddGame();
-            addGameWindow.ShowDialog();
-        }
+        //private void OpenAddGame()
+        //{
+        //    AddGame addGameWindow = new AddGame();
+        //    addGameWindow.ShowDialog();
+        //}
 
         public ICommand OpenModifyGameCommand { get; set; }
         private void OpenModifyGame()

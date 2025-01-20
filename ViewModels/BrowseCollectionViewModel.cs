@@ -2,6 +2,7 @@
 using Game_collection.Models;
 using Game_collection.Utils;
 using Game_collection.Views;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -29,7 +30,7 @@ namespace Game_collection.ViewModels
             set
             {
                 _cards = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Cards");
             }
         }
 
@@ -40,7 +41,7 @@ namespace Game_collection.ViewModels
             set
             {
                 _collectionName = value;
-                OnPropertyChanged();
+                OnPropertyChanged("CollectionName");
             }
         }
 
@@ -82,8 +83,22 @@ namespace Game_collection.ViewModels
         private void OpenAddGame()
         {
             AddGame addGameWindow = new AddGame(CollectionName);
+            addGameWindow.Closed += new EventHandler(RefreshCards);
             addGameWindow.ShowDialog();
+            
         }
+
+        private void RefreshCards(object sender, EventArgs e)
+        {
+            List<Game> games = DataAccess.BrowseGamesOfCollections(CollectionName);
+            Cards = new ObservableCollection<CardViewModel>();
+            foreach (var game in games)
+            {
+                Cards.Add(new CardViewModel(_mainViewModel, game, DataAccess.GetGameId(game.Name)));
+            }
+            OnPropertyChanged("Cards");
+        }
+
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

@@ -25,25 +25,25 @@ namespace Game_collection.Views
         public AddGame()
         {
             InitializeComponent();
-            DataContext = new AddGameViewModel();
+            DataContext = new AddGameViewModel(this);
         }
 
         public AddGame(Game game)
         {
             InitializeComponent();
-            DataContext = new AddGameViewModel(game);
+            DataContext = new AddGameViewModel(this, game);
         }
 
         public AddGame(string collectionName)
         {
             InitializeComponent();
-            DataContext = new AddGameViewModel(collectionName);
+            DataContext = new AddGameViewModel(this, collectionName);
         }
 
         public AddGame(Game game, string collectionName)
         {
             InitializeComponent();
-            DataContext = new AddGameViewModel(game, collectionName);
+            DataContext = new AddGameViewModel(this, game, collectionName);
         }
     }
 }

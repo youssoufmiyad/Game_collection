@@ -28,6 +28,7 @@
             <controls:Select Label="Collection" Placeholder="Wishlist" SelectName="Collection" SelectedValue="{Binding Collection, UpdateSourceTrigger=PropertyChanged}" Options="{Binding CollectionOptions}" Margin="629,299,495,382"/>
             <controls:Textarea Label="Description" Placeholder="Description" TextareaName="{Binding Description, UpdateSourceTrigger=PropertyChanged}"  Margin="630,362,115,252"/>
             <Button Content="Enregistrer" Command="{Binding AddGameCommand}" HorizontalAlignment="Left" Margin="1059,536,0,0" VerticalAlignment="Top" Width="251" Height="80"/>
+            <TextBlock HorizontalAlignment="Left" Margin="630,536,0,0" TextWrapping="Wrap" Text="{Binding ErrorText, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="381" Height="80"/>
         </Grid>
     </Grid>
 </Window>
