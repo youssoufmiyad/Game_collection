@@ -284,6 +284,33 @@ namespace Game_collection.Database
             }
         }
 
+        public static List<Game> BrowseGames()
+        {
+            using (SqliteConnection db = new SqliteConnection("Filename=collections.db"))
+            {
+                db.Open();
+
+                SqliteCommand selectGamesCommand = new SqliteCommand("SELECT * FROM Games; ", db);
+                SqliteDataReader selectGames = selectGamesCommand.ExecuteReader();
+                List<Game> games = new List<Game>();
+                while (selectGames.Read())
+                {
+                    games.Add(new Game(
+                        int.Parse(selectGames["ID"].ToString()),
+                        selectGames["Name"].ToString(),
+                        selectGames["Type"].ToString(),
+                        selectGames["Description"].ToString(),
+                        selectGames["Plateform"].ToString(),
+                        DateTime.Parse(selectGames["ReleaseDate"].ToString()),
+                        DateTime.Parse(selectGames["AcquisitionDate"].ToString()),
+                        double.Parse(selectGames["Price"].ToString()),
+                        double.Parse(selectGames["PriceResell"].ToString()),
+                        null));
+                }
+                return games;
+            }
+        }
+
         public static List<Game> BrowseGamesOfCollections(string collectionName)
         {
             using (SqliteConnection db = new SqliteConnection("Filename=collections.db"))
@@ -412,8 +439,25 @@ namespace Game_collection.Database
             }
         }
 
-        internal static void MoveGame()
+        internal static void MoveGame(string gameId, string newCollectionId, string collectionId)
         {
+            using (SqliteConnection db = new SqliteConnection("Filename=collections.db"))
+            {
+                db.Open();
+
+                string moveCommandRequest = @"
+                UPDATE collectionGames 
+                SET CollectionID = @NewCollectionId
+                WHERE CollectionID = @CollectionId AND gameId = @GameId
+                ";
+                SqliteCommand moveCommand = new SqliteCommand(moveCommandRequest, db);
+                moveCommand.Parameters.AddWithValue("@CollectionID", collectionId);
+                moveCommand.Parameters.AddWithValue("@NewCollectionID", newCollectionId);
+                moveCommand.Parameters.AddWithValue("@GameId", gameId);
+
+                moveCommand.ExecuteNonQuery();
+
+            }
             throw new NotImplementedException();
         }
 
