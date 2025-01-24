@@ -116,7 +116,9 @@ namespace Game_collection.ViewModels
 
             //OpenAddGameCommand = new RelayCommand(OpenAddGame);
             DeleteGameCommand = new RelayCommand(DeleteGame);
-            OpenModifyGameCommand = new RelayCommand(OpenModifyGame); 
+            OpenModifyGameCommand = new RelayCommand(OpenModifyGame);
+            MoveGameCommand = new RelayCommand(() => OpenMoveGame(ID, DataAccess.GetCollectionId(Game.Collection)));
+
         }
         public CardViewModel(MainViewModel mainViewModel, Game game, string id)
         {
@@ -134,6 +136,8 @@ namespace Game_collection.ViewModels
             //OpenAddGameCommand = new RelayCommand(OpenAddGame);
             DeleteGameCommand = new RelayCommand(DeleteGame);
             OpenModifyGameCommand = new RelayCommand(OpenModifyGame);
+            MoveGameCommand = new RelayCommand(()=>OpenMoveGame(ID, DataAccess.GetCollectionId(Game.Collection)));
+
         }
 
         private void GoToDetail()
@@ -141,14 +145,6 @@ namespace Game_collection.ViewModels
 
             _mainViewModel.ChangeViewModel(new DetailViewModel(_mainViewModel, Game));
         }
-
-        //public ICommand OpenAddGameCommand { get; set; }
-
-        //private void OpenAddGame()
-        //{
-        //    AddGame addGameWindow = new AddGame();
-        //    addGameWindow.ShowDialog();
-        //}
 
         public ICommand OpenModifyGameCommand { get; set; }
         private void OpenModifyGame()
@@ -165,9 +161,10 @@ namespace Game_collection.ViewModels
         }
 
         public ICommand MoveGameCommand { get; set; }
-        private void MoveGame()
+        private void OpenMoveGame(string gameID, string collectionID)
         {
-            DataAccess.MoveGame();
+            MoveGameWindow moveGameWindow = new MoveGameWindow(gameID, collectionID);
+            moveGameWindow.ShowDialog();
         }
 
         // Méthode pour notifier les changements de propriétés

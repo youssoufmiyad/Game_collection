@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Game_collection.Views"
         xmlns:controls="clr-namespace:Game_collection.Views.Controls"
         mc:Ignorable="d"
-         Height="780" Width="1450">
+          Height="800" Width="1500"
+ResizeMode="NoResize">
     <Grid>
         <Border BorderBrush="Black" BorderThickness="1" Width="470" Height="610" Margin="67,77,913,77">
             <Grid>

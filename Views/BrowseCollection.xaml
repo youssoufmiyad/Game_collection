@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Game_collection.Views.Controls"
         mc:Ignorable="d">
     <Grid>
-        <Button Content="+ Ajouter un jeu" HorizontalAlignment="Center" Height="55" VerticalAlignment="Top" Width="174" Margin="0,348,0,0" Command="{Binding OpenAddGameCommand}"/>
+        <Button Content="+ Ajouter un jeu" HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Width="174" Margin="-10,0,0,0" Command="{Binding OpenAddGameCommand}"/>
         <ListBox BorderThickness="0" ItemsSource="{Binding Cards}" VerticalAlignment="Center" HorizontalAlignment="Left">
             <ListBox.ItemTemplate>
                 <DataTemplate>

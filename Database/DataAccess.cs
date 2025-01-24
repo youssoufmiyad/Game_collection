@@ -129,12 +129,19 @@ namespace Game_collection.Database
 
 
                 SqliteCommand getCollectionIdCommand = new SqliteCommand("SELECT ID FROM Collections WHERE Name = @CollectionName;", db);
-                getCollectionIdCommand.Parameters.AddWithValue("@CollectionName", collectionName);
+                getCollectionIdCommand.Parameters.AddWithValue("@CollectionName", collectionName ?? "0");
                 SqliteDataReader collectionIdReader = getCollectionIdCommand.ExecuteReader();
                 collectionIdReader.Read();
 
+                try
+                {
+                    return collectionIdReader["ID"].ToString();
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message;
+                }
 
-                return collectionIdReader["ID"].ToString();
             }
         }
 
